@@ -1,4 +1,4 @@
-const API_BASE = 'https://smart-facility-backend.onrender.com/api';
+const API_BASE = 'https://smart-facility-backend.vercel.com/api';
 
 async function request(path, options = {}) {
 
