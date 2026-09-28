@@ -1,73 +1,55 @@
-const API_BASE = 'https://smart-facility-backend.vercel.com/api';
+const API_BASE = "http://localhost:5000/api";
 
 async function request(path, options = {}) {
-
-  const response = await fetch(
-    `${API_BASE}${path}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        ...(options.headers || {})
-      },
-      ...options
-    }
-  );
+  const response = await fetch(`${API_BASE}${path}`, {
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    },
+    ...options
+  });
 
   const text = await response.text();
 
   let data;
 
   try {
-    data = text ? JSON.parse(text) : {};
+    data = text ? JSON.parse(text) : null;
   } catch {
-    data = {
-      message: text
-    };
+    data = text;
   }
 
   if (!response.ok) {
     throw new Error(
-      data.message || `Request failed: ${response.status}`
+      data?.message || data?.error || `Request failed: ${response.status}`
     );
   }
 
   return data;
 }
 
+export const getDashboard = () => request("/dashboard");
 
-// Dashboard
-export const getDashboard = () =>
-  request("/dashboard");
+export const getFacilities = () => request("/facilities");
 
-
-// Facilities
-export const getFacilities = () =>
-  request("/facilities");
-
-export const createFacility = (facility) =>
+export const createFacility = (data) =>
   request("/facilities", {
     method: "POST",
-    body: JSON.stringify(facility)
+    body: JSON.stringify(data)
   });
 
+export const getInspections = () => request("/inspections");
 
-// Complaints
-export const getComplaints = () =>
-  request("/complaints");
-
-export const createComplaint = (complaint) =>
-  request("/complaints", {
-    method: "POST",
-    body: JSON.stringify(complaint)
-  });
-
-
-// Inspections
-export const getInspections = () =>
-  request("/inspections");
-
-export const createInspection = (inspection) =>
+export const createInspection = (data) =>
   request("/inspections", {
     method: "POST",
-    body: JSON.stringify(inspection)
+    body: JSON.stringify(data)
+  });
+
+export const getComplaints = () => request("/complaints");
+
+export const createComplaint = (data) =>
+  request("/complaints", {
+    method: "POST",
+    body: JSON.stringify(data)
   });
