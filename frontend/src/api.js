@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://final-project-kohl-eight.vercel.app/api";
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_BASE}${path}`, {
