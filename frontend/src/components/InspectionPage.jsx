@@ -200,17 +200,9 @@ export default function InspectionPage() {
               })
             }
           >
-            <option value="Completed">
-              Completed
-            </option>
-
-            <option value="Pending">
-              Pending
-            </option>
-
-            <option value="Failed">
-              Failed
-            </option>
+            <option value="Passed">Passed</option>
+<option value="Needs Attention">Needs Attention</option>
+<option value="Failed">Failed</option>
           </select>
 
           <textarea
